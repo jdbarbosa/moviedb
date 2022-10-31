@@ -1,10 +1,16 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { ActivityIndicator, FlatList, View, StyleSheet, TextInput, Button, TouchableOpacity } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import { ActivityIndicator,
+    FlatList, 
+    View, 
+    StyleSheet, 
+    TextInput, 
+    TouchableOpacity,
+    Button } from 'react-native';
 import { Movie } from '../model/Movie';
-import { movieDbInstance, imageServiceInstance } from '../api/movieDbApi'
 import MovieCell from '../components/MovieCell';
 import { useNavigation } from '@react-navigation/native';
 import useMovieList from '../hooks/useMovieList';
+import { useAuthContext } from '../context/AuthProvider';
 
 export type MovieResponse = {
     page: number
@@ -17,8 +23,9 @@ const MovieListScreen = () => {
     const [isLoading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
-    //const [data, setData] = useState<Array<Movie>>([]);
 
+    const { setIsLoggedIn } = useAuthContext()
+    
     const callback = useCallback(
         (isLoading: boolean, errorMessage: string) => {
             setLoading(isLoading)
@@ -27,13 +34,18 @@ const MovieListScreen = () => {
         [searchTerm]
     )
 
+    const logout = () => {
+        setIsLoggedIn(false)
+       }
+
     const [data] = useMovieList(searchTerm, callback)
-
-
-
     return (
         <>
             <View style={styles.container}>
+            <Button
+                onPress={ logout }
+                title="Sign Out"
+            />
                 <TextInput
                     style={styles.input}
                     onChangeText={setSearchTerm}
