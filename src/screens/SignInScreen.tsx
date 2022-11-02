@@ -1,23 +1,20 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { useAuthContext } from "../context/AuthProvider";
 
 const SignInScreen = () => {
 
-   const { isLoggedIn, setIsLoggedIn } = useAuthContext()
+    const { setIsLoggedIn } = useAuthContext()
 
-   console.log(isLoggedIn)
-
-   const login = () => {
-    setIsLoggedIn(true)
-    console.log(isLoggedIn)
-   }
+    const login = useCallback(() => {
+        setIsLoggedIn(true)
+    })
 
     return (
         <View>
             <Text>This is a dummy sign screen</Text>
             <Button
-                onPress={ login }
+                onPress={login}
                 title="Sign In"
             />
         </View>
