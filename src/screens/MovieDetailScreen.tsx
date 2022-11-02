@@ -1,8 +1,7 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
-import { Movie } from "../model/Movie";
 import {RouteProp} from '@react-navigation/core';
-import { MainStackParamList } from "../../App";
+import { MainStackParamList } from "../Root";
 import {StackNavigationProp} from '@react-navigation/stack';
 import { NativeStackScreenProps } from '@react-navigation/native-stack'
 
@@ -15,8 +14,7 @@ type Props<T extends keyof MainStackParamList> = {
 
 type MovieDetailProps = NativeStackScreenProps<MainStackParamList, 'MovieDetailScreen'>;
 
-//const MovieDetailScreen: React.FC<Props<'MovieDetailScreen'>> = ({ route }) => {
-function MovieDetailScreen({ route, navigation }: MovieDetailProps) {
+const MovieDetailScreen: React.FC<Props<'MovieDetailScreen'>> = ({ route }) => {
     const movie = route.params
     return (
         <>

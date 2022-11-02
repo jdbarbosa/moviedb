@@ -7,6 +7,7 @@ const useMovieList = (searchTerm: string,
                     callback: (isLoading: boolean, errorMessage: string) => void) => {
 
     const [data, setData] = useState<Array<Movie>>([]);
+    const api_key = '181af7fcab50e40fabe2d10cc8b90e37'
 
     useEffect(() => {
         const delayDebounce = setTimeout(() => {
@@ -24,7 +25,7 @@ const useMovieList = (searchTerm: string,
         try {
             const { data } = await movieDbInstance.get('search/movie', {
                 params: {
-                    'api_key': '181af7fcab50e40fabe2d10cc8b90e37',
+                    'api_key': api_key,
                     'query': searchTerm
                 }
             })
@@ -40,7 +41,7 @@ const useMovieList = (searchTerm: string,
         callback(true, '')
         try {
             const { data } = await movieDbInstance.get('discover/movie', {
-                params: { 'api_key': '181af7fcab50e40fabe2d10cc8b90e37' }
+                params: { 'api_key': api_key }
             })
             setData(data.results)
             callback(false, '')
